@@ -1,6 +1,6 @@
 <?php
 
-    require_once './model/LivroModel.php';
+    require_once 'autoload.php';
 
     use Alisson\model\LivroModel;
 

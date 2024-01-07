@@ -1,12 +1,11 @@
 <?php
 
     namespace Alisson\config\repository;
-
-    use Alisson\model\Livro;
+    use PDO;
 
     interface LivroInterface {
-        public function todosLivros(): array;
-        public function livroPorID(int $idLivro): Livro;
-        public function salvarLivro(Livro $livro): Livro;
+        public function todosLivros(PDO $conn);
+        public function livroPorID(int $idLivro);
+        public function salvarLivro($livro);
         public function deletarLivro(int $idLivro): void;
     }

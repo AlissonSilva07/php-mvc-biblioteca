@@ -2,6 +2,8 @@
 
     namespace Alisson\model;
 
+	require_once '../autoload.php';
+
     class LivroModel {
 
         private int $idLivro;
