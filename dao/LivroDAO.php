@@ -10,18 +10,18 @@
 
     class LivroDAO implements LivroInterface {
 
-        public function todosLivros(PDO $conn) {
-            $products = array();
+        public static function todosLivros(PDO $conn) {
+            $livros = array();
 
 			try {
 				$sqlQuery = "SELECT * FROM livros";
 				$stmt = $conn->query($sqlQuery);
 
 				while ($row = $stmt->fetchAll(PDO::FETCH_OBJ)) {
-                    $products[] = $row;
+                    $livros[] = $row;
             	}
 
-				return $products;
+				return $livros;
 
 			} catch (PDOException $e) {
             	echo "Error: " . $e->getMessage();

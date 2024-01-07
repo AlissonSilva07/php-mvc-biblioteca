@@ -3,6 +3,7 @@
     namespace Alisson\config\connection;
 
     use PDO;
+    use PDOException;
 
     class ConexaoDB {
 
@@ -18,7 +19,7 @@
                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 
                 return $pdo;
-            } catch (PDOException e) {
+            } catch (PDOException $e) {
                 echo 'ERROR: ' . $e->getMessage();
             }
         }
