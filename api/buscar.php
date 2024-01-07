@@ -9,8 +9,7 @@
     use Alisson\config\connection\ConexaoDB;
     use Alisson\controller\LivroController;
 
+    $id = $_GET['id'];
+
     $controller = new LivroController(ConexaoDB::ConexaoDB());
-    $controller->listarLivros();
-
-
-
+    $controller->livroPorID($id);

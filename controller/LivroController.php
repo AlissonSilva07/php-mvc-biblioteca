@@ -21,4 +21,10 @@
             $json = json_encode($livros);
             echo $json;            
         }
+
+        public function livroPorID(int $idLivro) {
+            $livroPorID = LivroDAO::livroPorID($this->conn, $idLivro);
+            $json = json_encode($livroPorID);
+            echo $json;  
+        }
     }

@@ -5,7 +5,7 @@
 
     interface LivroInterface {
         public static function todosLivros(PDO $conn);
-        public function livroPorID(int $idLivro);
-        public function salvarLivro($livro);
-        public function deletarLivro(int $idLivro): void;
+        public static function livroPorID(PDO $conn, int $idLivro);
+        public static function salvarLivro($livro);
+        public static function deletarLivro(int $idLivro): void;
     }

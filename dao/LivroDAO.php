@@ -5,6 +5,7 @@
     require_once '../autoload.php';
 
     use Alisson\config\repository\LivroInterface;
+    use Alisson\model\LivroModel;
     use PDO;
     use PDOException;
 
@@ -15,13 +16,16 @@
 
 			try {
 				$sqlQuery = "SELECT * FROM livros";
-				$stmt = $conn->query($sqlQuery);
+				$stmt = $conn->prepare($sqlQuery);
+                $stmt->execute();
 
 				while ($row = $stmt->fetchAll(PDO::FETCH_OBJ)) {
                     $livros[] = $row;
             	}
-
-				return $livros;
+                
+                if (!empty($livros)) {
+                    return $livros;
+                }
 
 			} catch (PDOException $e) {
             	echo "Error: " . $e->getMessage();
@@ -30,16 +34,29 @@
 
 
 
-        public function livroPorID(int $idLivro) {
+        public static function livroPorID(PDO $conn, int $idLivro) {
+            try {
 
+                $sqlQuery = "SELECT * FROM livros WHERE idLivro = :idLivro";
+                $stmt = $conn->prepare($sqlQuery);
+                $stmt->bindParam(':idLivro', $idLivro);
+                $stmt->execute();
+
+                $row = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+                return $row;
+
+            } catch (PDOException $e) {
+            	echo "Error: " . $e->getMessage();
+        	}
         }
 
 
-        public function salvarLivro($livro){
+        public static function salvarLivro($livro){
 
         }
 
-        public function deletarLivro(int $idLivro): void {
+        public static function deletarLivro(int $idLivro): void {
 
         }
         
