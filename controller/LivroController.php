@@ -4,9 +4,7 @@
 
     require_once '../autoload.php';
 
-    use Alisson\config\connection\ConexaoDB;
     use Alisson\dao\LivroDAO;
-    use Alisson\model\LivroModel;
     use PDO;
 
     class LivroController {
@@ -18,7 +16,7 @@
         }
 
 
-        public function listarLisvros() {
+        public function listarLivros() {
             $livros = LivroDAO::todosLivros($this->conn);
             $json = json_encode($livros);
             echo $json;            
