@@ -33,4 +33,8 @@
             $json = json_encode($livroSalvar);
             echo $json; 
         }
+
+        public function deletarLivro($idLivro) {
+            $livroSalvar = LivroDAO::deletarLivro($this->conn, $idLivro);
+        }
     }

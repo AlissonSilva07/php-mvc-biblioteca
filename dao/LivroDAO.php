@@ -80,7 +80,23 @@
 
         }
 
-        public static function deletarLivro(int $idLivro) {
+        public static function deletarLivro(PDO $conn, int $idLivro) {
+
+            $busca = self::livroPorID($conn, $idLivro);
+
+            if ($busca === null) {
+                echo 'O Produto não existe';
+            } else {
+                try {
+                    $sqlQuery = "DELETE FROM livros WHERE idLivro = :idLivro";
+                    $stmt = $conn->prepare($sqlQuery);
+                    $stmt->bindParam(':idLivro', $idLivro);
+                    $stmt->execute();
+
+                } catch (PDOException $e) {
+                    echo "Error: " . $e->getMessage();
+                }
+            }
 
         }
         
