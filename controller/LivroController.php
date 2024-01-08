@@ -5,7 +5,9 @@
     require_once '../autoload.php';
 
     use Alisson\dao\LivroDAO;
+    use Alisson\model\response\ResponseHandler;
     use PDO;
+    use PDOException;
 
     class LivroController {
         private PDO $conn;
@@ -17,9 +19,19 @@
 
 
         public function listarLivros() {
-            $livros = LivroDAO::todosLivros($this->conn);
-            $json = json_encode($livros);
-            echo $json;            
+            try {
+                $livros = LivroDAO::todosLivros($this->conn);
+
+                $response = new ResponseHandler();
+                
+                echo $response->getJson(http_response_code(200), 
+                                'A busca retornou os usuários com sucesso',
+                                $livros);
+
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+                       
         }
 
         public function livroPorID(int $idLivro) {

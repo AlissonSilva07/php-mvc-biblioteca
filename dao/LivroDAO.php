@@ -75,7 +75,7 @@
                     echo "Error: " . $e->getMessage();
                 }
             } else {
-                echo "Algo ruim aconteceu.";
+                echo "Não foi possível adicionar o produto.";
             }
 
         }
@@ -85,7 +85,7 @@
             $busca = self::livroPorID($conn, $idLivro);
 
             if ($busca === null) {
-                echo 'O Produto não existe';
+                echo 'O Produto não existe na base de dados.';
             } else {
                 try {
                     $sqlQuery = "DELETE FROM livros WHERE idLivro = :idLivro";
