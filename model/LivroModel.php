@@ -13,8 +13,7 @@
         private string $dataInicio;
         private string $dataDevolucao;
 
-        public function __construct(int $idLivro, string $nomeLivro, string $autorLivro, bool $disponivel, string $dataInicio, string $dataDevolucao) {
-            $this->idLivro = $idLivro;
+        public function __construct(string $nomeLivro, string $autorLivro, bool $disponivel, string $dataInicio, string $dataDevolucao) {
             $this->nomeLivro = $nomeLivro;
             $this->autorLivro = $autorLivro;
             $this->disponivel = $disponivel;

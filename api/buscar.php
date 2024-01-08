@@ -10,6 +10,15 @@
     use Alisson\controller\LivroController;
 
     $id = $_GET['id'];
-
-    $controller = new LivroController(ConexaoDB::ConexaoDB());
+    
+    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+		$controller = new LivroController(ConexaoDB::ConexaoDB());
     $controller->livroPorID($id);
+	} elseif ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+        http_response_code(200);
+        exit();
+    } else {
+        http_response_code(400);
+        echo 'Método errado.';
+        exit();
+    }

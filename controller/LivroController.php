@@ -27,4 +27,10 @@
             $json = json_encode($livroPorID);
             echo $json;  
         }
+
+        public function salvarLivro($livroData) {
+            $livroSalvar = LivroDAO::salvarLivro($this->conn, $livroData);
+            $json = json_encode($livroSalvar);
+            echo $json; 
+        }
     }
