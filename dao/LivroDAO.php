@@ -32,8 +32,6 @@
         	}
         }
 
-
-
         public static function livroPorID(PDO $conn, int $idLivro) {
             try {
                 $sqlQuery = "SELECT * FROM livros WHERE idLivro = :idLivro";
@@ -66,8 +64,8 @@
                     $sqlQuery = "INSERT INTO livros (nomeLivro, autorLivro, disponivel, dataInicio, dataDevolucao) VALUES (:nomeLivro, :autorLivro, :disponivel, :dataInicio, :dataDevolucao)";
 	                $stmt = $conn->prepare($sqlQuery);
 
-                    $stmt->bindParam(':nomeLivro', $nomeLivro, PDO::PARAM_STR);
-                    $stmt->bindParam(':autorLivro', $autorLivro, PDO::PARAM_STR);
+                    $stmt->bindParam(':nomeLivro', $nomeLivro);
+                    $stmt->bindParam(':autorLivro', $autorLivro);
                     $stmt->bindParam(':disponivel', $disponivel);
                     $stmt->bindParam(':dataInicio', $dataInicio);
                     $stmt->bindParam(':dataDevolucao', $dataDevolucao);
@@ -82,7 +80,7 @@
 
         }
 
-        public static function deletarLivro(int $idLivro): void {
+        public static function deletarLivro(int $idLivro) {
 
         }
         
