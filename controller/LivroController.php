@@ -35,9 +35,18 @@
         }
 
         public function livroPorID(int $idLivro) {
-            $livroPorID = LivroDAO::livroPorID($this->conn, $idLivro);
-            $json = json_encode($livroPorID);
-            echo $json;  
+            try {
+                $livroPorID = LivroDAO::livroPorID($this->conn, $idLivro);
+
+                $response = new ResponseHandler();
+                
+                echo $response->getJson(http_response_code(200), 
+                                'A busca retornou os usuários com sucesso',
+                                $livroPorID);
+
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
         }
 
         public function salvarLivro($livroData) {
