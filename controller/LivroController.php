@@ -18,7 +18,7 @@
         }
 
 
-        public function listarLivros() {
+        public function listLivros() {
             try {
                 $livros = LivroDAO::todosLivros($this->conn);
 
@@ -38,7 +38,7 @@
                        
         }
 
-        public function livroPorID(int $idLivro) {
+        public function searchLivro(int $idLivro) {
             try {
                 $livroPorID = LivroDAO::livroPorID($this->conn, $idLivro);
 
@@ -57,7 +57,7 @@
             }
         }
 
-        public function salvarLivro($livroData) {
+        public function saveLivro($livroData) {
             try {
                 $livroSalvar = LivroDAO::salvarLivro($this->conn, $livroData);
 
@@ -76,7 +76,7 @@
             }
         }
 
-        public function deletarLivro($idLivro) {           
+        public function deleteLivro($idLivro) {           
             try {
                 $livroDeletar = LivroDAO::deletarLivro($this->conn, $idLivro);
 
@@ -88,6 +88,25 @@
                 } else {
                     http_response_code(200);
                     echo $response->getJson('O livro de id ' . $idLivro . ' foi deletado com sucesso.', $livroDeletar);
+                }
+
+            } catch (PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+        }
+
+        public function updateLivro($idLivro, $livroAtualizar) {
+            try {
+                $livroAtualizar = LivroDAO::atualizarLivro($this->conn, $idLivro, $livroAtualizar);
+
+                $response = new ResponseHandler();
+
+                if ($livroAtualizar == false) {
+                    http_response_code(404);
+                    echo $response->getJson('Não foi encontrado um livro com id ' . $idLivro, $livroAtualizar);
+                } else {
+                    http_response_code(200);
+                    echo $response->getJson('O livro de id ' . $idLivro . ' foi atualizado com sucesso.', $livroAtualizar);
                 }
 
             } catch (PDOException $e) {

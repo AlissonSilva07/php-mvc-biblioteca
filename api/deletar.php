@@ -13,7 +13,7 @@
     
     if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
 		$controller = new LivroController(ConexaoDB::ConexaoDB());
-        $controller->deletarLivro($id);
+        $controller->deleteLivro($id);
 	} elseif ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
         http_response_code(200);
         exit();

@@ -88,5 +88,43 @@
             }
 
         }
+
+        public static function atualizarLivro(PDO $conn, $idLivro, $livroAtualizar) {
+
+            $busca = self::livroPorID($conn, $idLivro);
+
+            if ($busca == null) {
+                return false;
+            } else {
+                    if (empty($livroAtualizar)) {
+                    return null;                
+                    } else {
+                        $livroUpdate = new LivroModel($livroAtualizar->titulo, $livroAtualizar->autoria, $livroAtualizar->editora, $livroAtualizar->anoPublicacao, $livroAtualizar->disponivel, $livroAtualizar->dataCriacao);
+
+                        //Buscar valores dentro do model
+                        $titulo = $livroUpdate->getTitulo();
+                        $autoria = $livroUpdate->getAutoria();
+                        $editora = $livroUpdate->getEditora();
+                        $anoPublicacao = $livroUpdate->getAnoPublicacao();
+                        $disponivel = $livroUpdate->getDisponivel();
+                        $dataCriacao = $livroUpdate->getDataCriacao();
+
+                        $sqlQuery = "UPDATE livros SET titulo = :titulo, autoria = :autoria, editora = :editora, anoPublicacao = :anoPublicacao, disponivel = :disponivel, dataCriacao = :dataCriacao WHERE id = :idLivro";
+                        $stmt = $conn->prepare($sqlQuery);
+
+                        $stmt->bindParam(':idLivro', $idLivro);
+                        $stmt->bindParam(':titulo', $titulo);
+                        $stmt->bindParam(':autoria', $autoria);
+                        $stmt->bindParam(':editora', $editora);
+                        $stmt->bindParam(':anoPublicacao', $anoPublicacao);
+                        $stmt->bindParam(':disponivel', $disponivel);
+                        $stmt->bindParam(':dataCriacao', $dataCriacao);
+
+                        $stmt->execute();
+
+                        return $livroAtualizar;
+                    }
+            }
+        }
         
     }
