@@ -13,7 +13,7 @@
     
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 		$controller = new LivroController(ConexaoDB::ConexaoDB());
-    $controller->livroPorID($id);
+    $controller->searchLivro($id);
 	} elseif ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
         http_response_code(200);
         exit();

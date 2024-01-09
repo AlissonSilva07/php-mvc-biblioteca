@@ -14,7 +14,7 @@
 		$livroData = json_decode($json_data);
     
         $controller = new LivroController(ConexaoDB::ConexaoDB());
-        $controller->salvarLivro($livroData);
+        $controller->saveLivro($livroData);
 
 	} elseif ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
         http_response_code(200);

@@ -11,9 +11,8 @@
 
         public function __construct() {}
 
-        public function getJson(int $status, string $mensagem, $dados) {
+        public function getJson(string $mensagem, $dados) {
             $responseArr = array(
-                "status" => $status,
                 "mensagem" => $mensagem,
                 "dados" => $dados
             );
