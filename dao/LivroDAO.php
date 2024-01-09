@@ -14,38 +14,30 @@
         public static function todosLivros(PDO $conn) {
             $livros = array();
 
-			try {
-				$sqlQuery = "SELECT * FROM livros";
-				$stmt = $conn->prepare($sqlQuery);
-                $stmt->execute();
+			$sqlQuery = "SELECT * FROM livros";
+			$stmt = $conn->prepare($sqlQuery);
+            $stmt->execute();
 
-				while ($row = $stmt->fetchAll(PDO::FETCH_OBJ)) {
-                    $livros[] = $row;
-            	}
-                
-                if (!empty($livros)) {
-                    return $livros;
-                }
-
-			} catch (PDOException $e) {
-            	echo "Error: " . $e->getMessage();
-        	}
+			while ($row = $stmt->fetchAll(PDO::FETCH_OBJ)) {
+                $livros[] = $row;
+            } if (!empty($livros)) {
+                return $livros;
+            }
         }
 
         public static function livroPorID(PDO $conn, int $idLivro) {
-            try {
-                $sqlQuery = "SELECT * FROM livros WHERE idLivro = :idLivro";
-                $stmt = $conn->prepare($sqlQuery);
-                $stmt->bindParam(':idLivro', $idLivro);
-                $stmt->execute();
+            $sqlQuery = "SELECT * FROM livros WHERE idLivro = :idLivro";
+            $stmt = $conn->prepare($sqlQuery);
+            $stmt->bindParam(':idLivro', $idLivro);
+            $stmt->execute();
 
-                $row = $stmt->fetchAll(PDO::FETCH_OBJ);
+            $row = $stmt->fetchAll(PDO::FETCH_OBJ);
 
-                return $row;
-
-            } catch (PDOException $e) {
-            	echo "Error: " . $e->getMessage();
-        	}
+            if (empty($row)) {
+                    return null;
+            } else {
+                    return $row;
+            }
         }
 
 
@@ -53,49 +45,44 @@
             $livroPostar = new LivroModel($livroData->nomeLivro, $livroData->autorLivro, $livroData->disponivel, $livroData->dataInicio, $livroData->dataDevolucao);
 
             if (isset($livroPostar)) {
-                try {
-                    //Buscar valores dentro do model
-                    $nomeLivro = $livroPostar->getNomeLivro();
-                    $autorLivro = $livroPostar->getAutorLivro();
-                    $disponivel = $livroPostar->getDisponivel();
-                    $dataInicio = $livroPostar->getDataInicio();
-                    $dataDevolucao = $livroPostar->getDataDevolucao();
+                //Buscar valores dentro do model
+                $nomeLivro = $livroPostar->getNomeLivro();
+                $autorLivro = $livroPostar->getAutorLivro();
+                $disponivel = $livroPostar->getDisponivel();
+                $dataInicio = $livroPostar->getDataInicio();
+                $dataDevolucao = $livroPostar->getDataDevolucao();
 
-                    $sqlQuery = "INSERT INTO livros (nomeLivro, autorLivro, disponivel, dataInicio, dataDevolucao) VALUES (:nomeLivro, :autorLivro, :disponivel, :dataInicio, :dataDevolucao)";
-	                $stmt = $conn->prepare($sqlQuery);
+                $sqlQuery = "INSERT INTO livros (nomeLivro, autorLivro, disponivel, dataInicio, dataDevolucao) VALUES (:nomeLivro, :autorLivro, :disponivel, :dataInicio, :dataDevolucao)";
+	            $stmt = $conn->prepare($sqlQuery);
 
-                    $stmt->bindParam(':nomeLivro', $nomeLivro);
-                    $stmt->bindParam(':autorLivro', $autorLivro);
-                    $stmt->bindParam(':disponivel', $disponivel);
-                    $stmt->bindParam(':dataInicio', $dataInicio);
-                    $stmt->bindParam(':dataDevolucao', $dataDevolucao);
+                $stmt->bindParam(':nomeLivro', $nomeLivro);
+                $stmt->bindParam(':autorLivro', $autorLivro);
+                $stmt->bindParam(':disponivel', $disponivel);
+                $stmt->bindParam(':dataInicio', $dataInicio);
+                $stmt->bindParam(':dataDevolucao', $dataDevolucao);
 
-                    $stmt->execute();                    
-                } catch (PDOException $e) {
-                    echo "Error: " . $e->getMessage();
-                }
+                $stmt->execute();
+
+                return $livroPostar;
             } else {
-                echo "Não foi possível adicionar o produto.";
+                return "Não foi possível adicionar o produto.";
             }
 
         }
 
-        public static function deletarLivro(PDO $conn, int $idLivro) {
+        public static function deletarLivro(PDO $conn, int $idLivro): bool {
 
             $busca = self::livroPorID($conn, $idLivro);
 
-            if ($busca === null) {
-                echo 'O Produto não existe na base de dados.';
+            if ($busca == null) {
+                return false;
             } else {
-                try {
-                    $sqlQuery = "DELETE FROM livros WHERE idLivro = :idLivro";
-                    $stmt = $conn->prepare($sqlQuery);
-                    $stmt->bindParam(':idLivro', $idLivro);
-                    $stmt->execute();
+                $sqlQuery = "DELETE FROM livros WHERE idLivro = :idLivro";
+                $stmt = $conn->prepare($sqlQuery);
+                $stmt->bindParam(':idLivro', $idLivro);
+                $stmt->execute();
 
-                } catch (PDOException $e) {
-                    echo "Error: " . $e->getMessage();
-                }
+                return true;
             }
 
         }
