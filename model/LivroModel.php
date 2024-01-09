@@ -6,36 +6,48 @@
 
     class LivroModel {
 
-        private int $idLivro;
-        private string $nomeLivro;
-        private string $autorLivro;
+        private int $id;
+        private string $titulo;
+        private string $autoria;
+        private string $editora;
+        private int $anoPublicacao;
         private bool $disponivel;
-        private string $dataInicio;
-        private string $dataDevolucao;
+        private string $dataCriacao;
 
-        public function __construct(string $nomeLivro, string $autorLivro, bool $disponivel, string $dataInicio, string $dataDevolucao) {
-            $this->nomeLivro = $nomeLivro;
-            $this->autorLivro = $autorLivro;
+        public function __construct(string $titulo, string $autoria, string $editora, int $anoPublicacao, bool $disponivel, string $dataCriacao) {
+            $this->titulo = $titulo;
+            $this->autoria = $autoria;            
+            $this->editora = $editora;
+            $this->anoPublicacao = $anoPublicacao;
             $this->disponivel = $disponivel;
-            $this->dataInicio = $dataInicio;
-            $this->dataDevolucao = $dataDevolucao;
+            $this->dataCriacao = $dataCriacao;
         }
 
 
         //Getters
-        public function getIdLivro(): int 
+        public function getId(): int 
 		{
-			return $this->idLivro;
+			return $this->id;
 		}
         
-        public function getNomeLivro(): string 
+        public function getTitulo(): string 
 		{
-			return $this->nomeLivro;
+			return $this->titulo;
 		}
 
-        public function getAutorLivro(): string 
+        public function getAutoria(): string 
 		{
-			return $this->autorLivro;
+			return $this->autoria;
+		}
+
+        public function getEditora(): string 
+		{
+			return $this->editora;
+		}
+
+        public function getAnoPublicacao(): int 
+		{
+			return $this->anoPublicacao;
 		}
 
         public function getDisponivel(): bool 
@@ -43,30 +55,35 @@
 			return $this->disponivel;
 		}
 
-        public function getDataInicio(): string 
+		public function getDataCriacao(): string 
 		{
-			return $this->dataInicio;
-		}
-
-        public function getDataDevolucao(): string 
-		{
-			return $this->dataDevolucao;
+			return $this->dataCriacao;
 		}
 
         //Setters
-        public function setIdLivro(int $idLivro): void 
+        public function setId(int $id): void 
 		{
-			$this->idLivro = $idLivro;
+			$this->id = $id;
 		}
         
-        public function setNomeLivro(string $nomeLivro): void 
+        public function setTitulo(string $titulo): void 
 		{
-			$this->nomeLivro = $nomeLivro;
+			$this->titulo = $titulo;
 		}
 
-        public function setAutorLivro(string $autorLivro): void 
+        public function setAutoria(string $autoria): void 
 		{
-			$this->autorLivro = $autorLivro;
+			$this->autoria = $autoria;
+		}
+
+        public function setEditora(string $editora): void 
+		{
+			$this->editora = $editora;
+		}
+
+        public function setAnoPublicacao(int $anoPublicacaoanoPublicacao): void 
+		{
+			$this->anoPublicacao = $anoPublicacao;
 		}
 
         public function setDisponivel(bool $disponivel): void 
@@ -74,16 +91,10 @@
 			$this->disponivel = $disponivel;
 		}
 
-        public function setDataInicio(string $dataInicio): void 
+		public function setDataCriacao(string $dataCriacao): void 
 		{
-			$this->dataInicio = $dataInicio;
-		}
-
-        public function setDataDevolucao(string $dataDevolucao): void 
-		{
-			$this->dataDevolucao = $dataDevolucao;
-		}    
-
+			$this->dataCriacao = $dataCriacao;
+		}        
     }
 
     

@@ -26,7 +26,7 @@
         }
 
         public static function livroPorID(PDO $conn, int $idLivro) {
-            $sqlQuery = "SELECT * FROM livros WHERE idLivro = :idLivro";
+            $sqlQuery = "SELECT * FROM livros WHERE id = :idLivro";
             $stmt = $conn->prepare($sqlQuery);
             $stmt->bindParam(':idLivro', $idLivro);
             $stmt->execute();
@@ -42,30 +42,32 @@
 
 
         public static function salvarLivro(PDO $conn, $livroData){
-            $livroPostar = new LivroModel($livroData->nomeLivro, $livroData->autorLivro, $livroData->disponivel, $livroData->dataInicio, $livroData->dataDevolucao);
+            if (empty($livroData)) {
+                return null;                
+            } else {
+                $livroPostar = new LivroModel($livroData->titulo, $livroData->autoria, $livroData->editora, $livroData->anoPublicacao, $livroData->disponivel, $livroData->dataCriacao);
 
-            if (isset($livroPostar)) {
                 //Buscar valores dentro do model
-                $nomeLivro = $livroPostar->getNomeLivro();
-                $autorLivro = $livroPostar->getAutorLivro();
+                $titulo = $livroPostar->getTitulo();
+                $autoria = $livroPostar->getAutoria();
+                $editora = $livroPostar->getEditora();
+                $anoPublicacao = $livroPostar->getAnoPublicacao();
                 $disponivel = $livroPostar->getDisponivel();
-                $dataInicio = $livroPostar->getDataInicio();
-                $dataDevolucao = $livroPostar->getDataDevolucao();
+                $dataCriacao = $livroPostar->getDataCriacao();
 
-                $sqlQuery = "INSERT INTO livros (nomeLivro, autorLivro, disponivel, dataInicio, dataDevolucao) VALUES (:nomeLivro, :autorLivro, :disponivel, :dataInicio, :dataDevolucao)";
-	            $stmt = $conn->prepare($sqlQuery);
+                $sqlQuery = "INSERT INTO livros (titulo, autoria, editora, anoPublicacao, disponivel, dataCriacao) VALUES (:titulo, :autoria, :editora, :anoPublicacao, :disponivel, :dataCriacao)";
+                $stmt = $conn->prepare($sqlQuery);
 
-                $stmt->bindParam(':nomeLivro', $nomeLivro);
-                $stmt->bindParam(':autorLivro', $autorLivro);
+                $stmt->bindParam(':titulo', $titulo);
+                $stmt->bindParam(':autoria', $autoria);
+                $stmt->bindParam(':editora', $editora);
+                $stmt->bindParam(':anoPublicacao', $anoPublicacao);
                 $stmt->bindParam(':disponivel', $disponivel);
-                $stmt->bindParam(':dataInicio', $dataInicio);
-                $stmt->bindParam(':dataDevolucao', $dataDevolucao);
+                $stmt->bindParam(':dataCriacao', $dataCriacao);
 
                 $stmt->execute();
 
-                return $livroPostar;
-            } else {
-                return "Não foi possível adicionar o produto.";
+                return $livroData;
             }
 
         }
@@ -77,7 +79,7 @@
             if ($busca == null) {
                 return false;
             } else {
-                $sqlQuery = "DELETE FROM livros WHERE idLivro = :idLivro";
+                $sqlQuery = "DELETE FROM livros WHERE id = :idLivro";
                 $stmt = $conn->prepare($sqlQuery);
                 $stmt->bindParam(':idLivro', $idLivro);
                 $stmt->execute();

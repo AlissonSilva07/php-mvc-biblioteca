@@ -1,8 +1,9 @@
 CREATE TABLE livros (
-    idLivro INT NOT NULL AUTO_INCREMENT,
-    nomeLivro VARCHAR(255) NOT NULL,
-    autorLivro VARCHAR(255) NOT NULL,
+    id INT NOT NULL AUTO_INCREMENT,
+    titulo VARCHAR(255) NOT NULL,
+    autoria VARCHAR(255) NOT NULL,
+    editora VARCHAR(255) NOT NULL,
+    anoPublicacao INT(4) NOT NULL,
     disponivel boolean NOT NULL,
-    dataInicio DATE NOT NULL,
-    dataDevolucao DATE NOT NULL,
-PRIMARY KEY (idLivro))
+    dataCriacao date NOT NULL,
+PRIMARY KEY (id))
