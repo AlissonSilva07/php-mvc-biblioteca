@@ -45,7 +45,7 @@
             if (empty($livroData)) {
                 return null;                
             } else {
-                $livroPostar = new LivroModel($livroData->titulo, $livroData->autoria, $livroData->editora, $livroData->anoPublicacao, $livroData->disponivel, $livroData->dataCriacao);
+                $livroPostar = new LivroModel($livroData->titulo, $livroData->autoria, $livroData->editora, $livroData->anoPublicacao, $livroData->disponivel);
 
                 //Buscar valores dentro do model
                 $titulo = $livroPostar->getTitulo();
@@ -53,7 +53,10 @@
                 $editora = $livroPostar->getEditora();
                 $anoPublicacao = $livroPostar->getAnoPublicacao();
                 $disponivel = $livroPostar->getDisponivel();
-                $dataCriacao = $livroPostar->getDataCriacao();
+
+                //Formata a data
+                $dataAtual = date('Y-m-d');
+                $dataCriacao = $dataAtual;
 
                 $sqlQuery = "INSERT INTO livros (titulo, autoria, editora, anoPublicacao, disponivel, dataCriacao) VALUES (:titulo, :autoria, :editora, :anoPublicacao, :disponivel, :dataCriacao)";
                 $stmt = $conn->prepare($sqlQuery);
@@ -99,7 +102,7 @@
                     if (empty($livroAtualizar)) {
                     return null;                
                     } else {
-                        $livroUpdate = new LivroModel($livroAtualizar->titulo, $livroAtualizar->autoria, $livroAtualizar->editora, $livroAtualizar->anoPublicacao, $livroAtualizar->disponivel, $livroAtualizar->dataCriacao);
+                        $livroUpdate = new LivroModel($livroAtualizar->titulo, $livroAtualizar->autoria, $livroAtualizar->editora, $livroAtualizar->anoPublicacao, $livroAtualizar->disponivel);
 
                         //Buscar valores dentro do model
                         $titulo = $livroUpdate->getTitulo();
@@ -107,9 +110,8 @@
                         $editora = $livroUpdate->getEditora();
                         $anoPublicacao = $livroUpdate->getAnoPublicacao();
                         $disponivel = $livroUpdate->getDisponivel();
-                        $dataCriacao = $livroUpdate->getDataCriacao();
 
-                        $sqlQuery = "UPDATE livros SET titulo = :titulo, autoria = :autoria, editora = :editora, anoPublicacao = :anoPublicacao, disponivel = :disponivel, dataCriacao = :dataCriacao WHERE id = :idLivro";
+                        $sqlQuery = "UPDATE livros SET titulo = :titulo, autoria = :autoria, editora = :editora, anoPublicacao = :anoPublicacao, disponivel = :disponivel WHERE id = :idLivro";
                         $stmt = $conn->prepare($sqlQuery);
 
                         $stmt->bindParam(':idLivro', $idLivro);
@@ -118,7 +120,6 @@
                         $stmt->bindParam(':editora', $editora);
                         $stmt->bindParam(':anoPublicacao', $anoPublicacao);
                         $stmt->bindParam(':disponivel', $disponivel);
-                        $stmt->bindParam(':dataCriacao', $dataCriacao);
 
                         $stmt->execute();
 

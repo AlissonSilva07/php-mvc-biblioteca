@@ -14,13 +14,12 @@
         private bool $disponivel;
         private string $dataCriacao;
 
-        public function __construct(string $titulo, string $autoria, string $editora, int $anoPublicacao, bool $disponivel, string $dataCriacao) {
+        public function __construct(string $titulo, string $autoria, string $editora, int $anoPublicacao, bool $disponivel) {
             $this->titulo = $titulo;
             $this->autoria = $autoria;            
             $this->editora = $editora;
             $this->anoPublicacao = $anoPublicacao;
             $this->disponivel = $disponivel;
-            $this->dataCriacao = $dataCriacao;
         }
 
 
